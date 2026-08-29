@@ -33,7 +33,3 @@ app:
         api-key: ${DEEPSEEK_API_KEY}
         base-url: ${DEEPSEEK_BASE_URL}
         model: ${DEEPSEEK_MODEL}
-      nvidia:
-        api-key: ${NVIDIA_API_KEY}
-        base-url: ${NVIDIA_BASE_URL}
-        model: ${NVIDIA_MODEL}

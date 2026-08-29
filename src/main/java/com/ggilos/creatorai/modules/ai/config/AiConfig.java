@@ -32,20 +32,4 @@ public class AiConfig {
                 .build();
     }
 
-    @Bean(AiProvider.NVIDIA_BEAN)
-    public ChatModel nvidiaChatModel() {
-        var nvidiaProperties = aiProperties.getProviders().get(AiProvider.NVIDIA_BEAN);
-
-        var options = OpenAiChatOptions
-                .builder()
-                .apiKey(nvidiaProperties.apiKey())
-                .baseUrl(nvidiaProperties.baseUrl())
-                .model(nvidiaProperties.model())
-                .build();
-
-        return OpenAiChatModel
-                .builder()
-                .options(options)
-                .build();
-    }
 }

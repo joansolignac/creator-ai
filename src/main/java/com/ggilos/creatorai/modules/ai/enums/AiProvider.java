@@ -4,11 +4,9 @@ import lombok.RequiredArgsConstructor;
 
 @RequiredArgsConstructor
 public enum AiProvider {
-    DEEPSEEK("deepseek"),
-    NVIDIA("nvidia");
+    DEEPSEEK("deepseek");
 
     public static final String DEEPSEEK_BEAN = "deepseek";
-    public static final String NVIDIA_BEAN = "nvidia";
 
     private final String value;
 
