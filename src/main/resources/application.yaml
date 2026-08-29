@@ -1,3 +1,10 @@
 spring:
   application:
     name: creator-ai
+  profiles:
+    active: ${SPRING_PROFILES_ACTIVE:dev}
+
+server:
+  port: ${PORT}
+  servlet:
+    context-path: /api/v1

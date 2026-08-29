@@ -1,0 +1,39 @@
+spring:
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://${DB_HOST}:${DB_PORT}/${DB_NAME}
+    username: ${DB_USERNAME}
+    password: ${DB_PASSWORD}
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+    properties:
+      hibernate:
+        format_sql: true
+  ai:
+    model:
+      chat: none
+      embedding: none
+      audio:
+        speech: none
+        transcription: none
+      image: none
+      moderation: none
+
+logging:
+  level:
+    org.hibernate.jpa: DEBUG
+    org.hibernate.orm.jdbc.bind: TRACE
+
+app:
+  ai:
+    providers:
+      deepseek:
+        api-key: ${DEEPSEEK_API_KEY}
+        base-url: ${DEEPSEEK_BASE_URL}
+        model: ${DEEPSEEK_MODEL}
+      nvidia:
+        api-key: ${NVIDIA_API_KEY}
+        base-url: ${NVIDIA_BASE_URL}
+        model: ${NVIDIA_MODEL}
