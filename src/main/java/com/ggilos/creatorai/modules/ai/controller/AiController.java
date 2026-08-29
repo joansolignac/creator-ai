@@ -1,9 +1,9 @@
 package com.ggilos.creatorai.modules.ai.controller;
 
 import com.ggilos.creatorai.modules.ai.dto.request.ChangeProviderRequest;
-import com.ggilos.creatorai.modules.ai.dto.response.ProviderResponse;
-import com.ggilos.creatorai.modules.ai.dto.response.ProviderStatus;
-import com.ggilos.creatorai.modules.ai.feature.AiRegistry;
+import com.ggilos.creatorai.modules.ai.dto.response.ProviderAvailabilityResponse;
+import com.ggilos.creatorai.modules.ai.dto.response.ProviderSelectionResponse;
+import com.ggilos.creatorai.modules.ai.service.AiProviderRegistry;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -17,21 +17,21 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/ai")
 @RequiredArgsConstructor
 public class AiController {
-    private final AiRegistry aiRegistry;
+    private final AiProviderRegistry aiProviderRegistry;
 
     @PostMapping("/provider")
-    public ResponseEntity<ProviderResponse> changeProvider(
+    public ResponseEntity<ProviderSelectionResponse> selectProvider(
             @Valid @RequestBody ChangeProviderRequest request
     ) {
         return ResponseEntity
-                .ok(aiRegistry.changeProvider(request.provider()));
+                .ok(aiProviderRegistry.selectProvider(request.provider()));
     }
 
     @GetMapping("/provider/status")
-    public ResponseEntity<ProviderStatus> getStatus() {
+    public ResponseEntity<ProviderAvailabilityResponse> getCurrentProviderStatus() {
         return ResponseEntity
                 .ok(
-                        aiRegistry.getStatus()
+                        aiProviderRegistry.getCurrentProviderStatus()
                 );
     }
 }

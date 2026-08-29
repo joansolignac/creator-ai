@@ -1,37 +1,36 @@
-package com.ggilos.creatorai.modules.ai.feature;
+package com.ggilos.creatorai.modules.ai.service;
 
-import com.ggilos.creatorai.modules.ai.dto.response.ProviderResponse;
-import com.ggilos.creatorai.modules.ai.dto.response.ProviderStatus;
+import com.ggilos.creatorai.modules.ai.dto.response.ProviderAvailabilityResponse;
+import com.ggilos.creatorai.modules.ai.dto.response.ProviderSelectionResponse;
 import com.ggilos.creatorai.modules.ai.enums.AiProvider;
 import com.ggilos.creatorai.modules.ai.exception.EmptyProviderResponseException;
 import com.ggilos.creatorai.modules.ai.exception.ProviderNotAvailableException;
 import com.ggilos.creatorai.modules.ai.exception.ProviderNotFoundException;
 import org.springframework.ai.chat.client.ChatClient;
 import org.springframework.ai.chat.model.ChatModel;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
 import java.util.Map;
 import java.util.concurrent.atomic.AtomicReference;
 
 @Service
-public class AiRegistry {
-    private final Map<String, ChatModel> providers;
+public class AiProviderRegistry {
+    private final Map<AiProvider, ChatModel> providerModels;
     private final AtomicReference<AiProvider> currentProvider;
     private final AtomicReference<ChatModel> currentChatModel;
 
-    public AiRegistry(
-            Map<String, ChatModel> providers,
+    public AiProviderRegistry(
+            @Qualifier("aiProviderModels") Map<AiProvider, ChatModel> providerModels,
             ChatModel chatModel
     ) {
-        this.providers = providers;
+        this.providerModels = providerModels;
         this.currentProvider = new AtomicReference<>(AiProvider.DEEPSEEK);
         this.currentChatModel = new AtomicReference<>(chatModel);
     }
-
-    public ProviderResponse changeProvider(AiProvider aiProvider) {
-        String beanName = aiProvider.getBeanName();
-
-        ChatModel chatModel = this.providers.get(beanName);
+    
+    public ProviderSelectionResponse selectProvider(AiProvider aiProvider) {
+        ChatModel chatModel = this.providerModels.get(aiProvider);
 
         if (chatModel == null) {
             throw new ProviderNotFoundException(aiProvider);
@@ -42,7 +41,7 @@ public class AiRegistry {
         this.currentProvider.set(aiProvider);
         this.currentChatModel.set(chatModel);
 
-        return new ProviderResponse(
+        return new ProviderSelectionResponse(
           aiProvider
         );
     }
@@ -51,16 +50,15 @@ public class AiRegistry {
         return this.currentChatModel.get();
     }
 
-    //Simple function to get the current status
-    public ProviderStatus getStatus() {
+    public ProviderAvailabilityResponse getCurrentProviderStatus() {
         this.validateModel(this.currentChatModel.get());
-        return new ProviderStatus(
+        return new ProviderAvailabilityResponse(
                 true
         );
     }
 
     private void validateModel(ChatModel chatModel) {
-        String USER_MESSAGE = "REPLY ONLY WITH OK";
+        String validationPrompt = "REPLY ONLY WITH OK";
 
         try {
             ChatClient chatClient = ChatClient
@@ -69,7 +67,7 @@ public class AiRegistry {
 
             String response = chatClient
                     .prompt()
-                    .user(USER_MESSAGE)
+                    .user(validationPrompt)
                     .call()
                     .content();
 

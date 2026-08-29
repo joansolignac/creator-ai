@@ -12,7 +12,7 @@ import java.util.UUID;
 @MappedSuperclass
 @EntityListeners(AuditingEntityListener.class)
 @Getter
-public class Auditable {
+public class AuditableEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
     private UUID id;
@@ -30,9 +30,9 @@ public class Auditable {
         if (this == o) return true;
         if (o == null || this.getClass() != o.getClass()) return false;
 
-        Auditable auditable = (Auditable) o;
+        AuditableEntity auditableEntity = (AuditableEntity) o;
 
-        return this.id != null && this.id.equals(auditable.id);
+        return this.id != null && this.id.equals(auditableEntity.id);
     }
 
     @Override

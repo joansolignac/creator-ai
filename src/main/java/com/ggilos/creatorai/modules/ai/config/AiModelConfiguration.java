@@ -5,19 +5,22 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.ai.chat.model.ChatModel;
 import org.springframework.ai.openai.OpenAiChatModel;
 import org.springframework.ai.openai.OpenAiChatOptions;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Primary;
 
+import java.util.Map;
+
 @Configuration
 @RequiredArgsConstructor
-public class AiConfig {
+public class AiModelConfiguration {
     private final AiProperties aiProperties;
 
     @Primary
-    @Bean(AiProvider.DEEPSEEK_BEAN)
-    public ChatModel deepSeekChatModel() {
-        var deepseekProperties = aiProperties.getProviders().get(AiProvider.DEEPSEEK_BEAN);
+    @Bean(AiProvider.DEEPSEEK_BEAN_NAME)
+    public ChatModel deepseekChatModel() {
+        var deepseekProperties = aiProperties.getProviders().get(AiProvider.DEEPSEEK);
 
         var options = OpenAiChatOptions
                 .builder()
@@ -32,4 +35,12 @@ public class AiConfig {
                 .build();
     }
 
+    @Bean("aiProviderModels")
+    public Map<AiProvider, ChatModel> aiProviderModels(
+            @Qualifier(AiProvider.DEEPSEEK_BEAN_NAME) ChatModel deepseekChatModel
+    ) {
+        return Map.of(
+                AiProvider.DEEPSEEK, deepseekChatModel
+        );
+    }
 }

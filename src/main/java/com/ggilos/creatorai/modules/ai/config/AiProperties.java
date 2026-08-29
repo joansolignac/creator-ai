@@ -1,6 +1,6 @@
 package com.ggilos.creatorai.modules.ai.config;
 
-
+import com.ggilos.creatorai.modules.ai.enums.AiProvider;
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.boot.context.properties.ConfigurationProperties;
@@ -11,9 +11,9 @@ import java.util.Map;
 @Setter
 @ConfigurationProperties(prefix = "app.ai")
 public class AiProperties {
-    private Map<String, ProviderConfig> providers;
+    private Map<AiProvider, ProviderProperties> providers;
 
-    public record ProviderConfig(
+    public record ProviderProperties(
             String apiKey,
             String baseUrl,
             String model

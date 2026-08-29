@@ -6,11 +6,11 @@ import lombok.RequiredArgsConstructor;
 public enum AiProvider {
     DEEPSEEK("deepseek");
 
-    public static final String DEEPSEEK_BEAN = "deepseek";
+    public static final String DEEPSEEK_BEAN_NAME = "deepseek";
 
-    private final String value;
+    private final String beanName;
 
     public String getBeanName() {
-        return this.value;
+        return this.beanName;
     }
 }
