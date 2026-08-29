@@ -32,7 +32,7 @@ public class Auditable {
 
         Auditable auditable = (Auditable) o;
 
-        return auditable.id != null && this.getId() == auditable.getId();
+        return this.id != null && this.id.equals(auditable.id);
     }
 
     @Override
