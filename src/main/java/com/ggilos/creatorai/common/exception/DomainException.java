@@ -4,7 +4,7 @@ public class DomainException extends RuntimeException {
     protected ErrorCode errorCode;
 
     protected DomainException(String message, ErrorCode errorCode) {
-        this.errorCode =  errorCode;
         super(message);
+        this.errorCode = errorCode;
     }
 }
