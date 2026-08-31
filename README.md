@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="https://spring.io/img/projects/spring-boot.svg" alt="Logo de Spring Boot" width="110" />
+  <img src="https://img.icons8.com/color/1200/spring-logo.jpg" alt="Logo de Spring Boot" width="110" />
   &nbsp;&nbsp;
   <strong style="font-size: 2.4em; vertical-align: middle;">Spring Boot</strong>
 </p>

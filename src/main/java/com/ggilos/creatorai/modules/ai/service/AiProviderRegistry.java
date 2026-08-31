@@ -53,6 +53,7 @@ public class AiProviderRegistry {
     public ProviderAvailabilityResponse getCurrentProviderStatus() {
         this.validateModel(this.currentChatModel.get());
         return new ProviderAvailabilityResponse(
+                this.currentProvider.get(),
                 true
         );
     }
