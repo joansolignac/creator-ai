@@ -1,8 +1,10 @@
 <p align="center">
-  <img src="https://spring.io/img/projects/spring-boot.svg" alt="Spring Boot" width="180" />
+  <img src="https://spring.io/img/projects/spring-boot.svg" alt="Logo de Spring Boot" width="110" />
+  &nbsp;&nbsp;
+  <strong style="font-size: 2.4em; vertical-align: middle;">Spring Boot</strong>
 </p>
 
-# Creator AI
+<h1 align="center">Creator AI</h1>
 
 Backend para una plataforma de creadores que emplea modelos de inteligencia artificial para generar bocetos estructurados de cursos. El objetivo es acompañar el flujo de definición de un curso desde el tema inicial hasta la selección de un resultado generado.
 
